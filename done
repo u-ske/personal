@@ -1,0 +1,51 @@
+
+# mysql
+
+# /etc/mysql.my.conf
+# added below
+[mysqld]
+character-set-server=utf8
+skip-character-set-client-handshake
+default-storage-engine=INNODB
+
+[mysqldump]
+default-character-set=utf8
+
+[mysql]
+default-character-set=utf8
+
+# comment out
+bind-address
+
+# restart mysql server
+sudo /etc/init.d/mysql restart
+
+# made user
+#GRANT ALL PRIVILEGES ON *.* TO (ユーザ名)@localhost IDENTIFIED BY '(パスワード)' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO sugaya@"%" IDENTIFIED BY 'パスワード' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+# installed by apt-get
+# ufw
+# iptables-persistent
+
+# Port Open
+iptables -A INPUT -i eth0 -p tcp -m tcp --dport 3306 -j ACCEPT
+
+# Database
+create database spam_mail;
+
+# Table
+create table spam_mail.temp_mail
+(id int, user varchar(20), );
+id
+user(to)
+cc
+bcc
+sender
+ReplyTo
+date
+from
+subject
+actions
+updateTime
