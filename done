@@ -1,8 +1,12 @@
 
-# mysql
+#########
+# mysql #
+#########
 
-# /etc/mysql.my.conf
-# added below
+######################
+# /etc/mysql.my.conf #
+######################
+## added below
 [mysqld]
 character-set-server=utf8
 skip-character-set-client-handshake
@@ -14,38 +18,69 @@ default-character-set=utf8
 [mysql]
 default-character-set=utf8
 
-# comment out
+## comment out
 bind-address
 
-# restart mysql server
+## until here
+
+## restart mysql server
 sudo /etc/init.d/mysql restart
 
-# made user
+# made a user that able to access from outside.
 #GRANT ALL PRIVILEGES ON *.* TO (ユーザ名)@localhost IDENTIFIED BY '(パスワード)' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO sugaya@"%" IDENTIFIED BY 'パスワード' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
 # installed by apt-get
-# ufw
+# ufw - firewall noneed actually
 # iptables-persistent
 
-# Port Open
+# Open 3306 port for MySQL
 iptables -A INPUT -i eth0 -p tcp -m tcp --dport 3306 -j ACCEPT
 
-# Database
-create database spam_mail;
+# Database Creation
+create database digest;
 
-# Table
-create table spam_mail.temp_mail
-(id int, user varchar(20), );
-id
-user(to)
-cc
-bcc
-sender
-ReplyTo
-date
-from
-subject
-actions
-updateTime
+# Table Creation
+create table digest.temp_mails
+(
+id int(10) not null auto_increment,
+user varchar(128),
+sender varchar(128),
+replyTo varchar(128),
+date datetime,
+fromAddr varchar(128),
+subject varchar(256),
+status smallint(1),
+updateTime datetime,
+primary key id
+);
+
+#rawData varchar(2)
+#actions
+#cc
+#bcc
+
+(id int, user varchar(128), sender varchar(128), replyTo varchar(128), date datetime, from varchar(128), subject varchar(256), status int, updateTime datetime)
+########################
+# /etc/postfix/main.cf #
+########################
+mydestination	# added values
+luser_relay		# added
+alias_map		# comment in
+alias_database	# comment in
+
+################
+# /etc/aliases #
+################
+added catchall
+
+#########################
+# /etc/php5/cli/php.ini #
+#########################
+#added below
+extension=yaml.so
+
+
+
+
