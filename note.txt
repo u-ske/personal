@@ -1,0 +1,89 @@
+
+smartmxtest.entinux.com - develop
+
+# Postfix version:2.11.2
+
+[main.cf]
+# ローカルで配送依頼されたメールの送信元アドレスに付加するドメイン名
+myorigin = spamtest.entinux.com
+
+# メールサーバーのホスト名
+myhostname = ScrolloutF1.spamtest.entinux.com
+
+# 外部からきたメールの中で転送するドメイン名
+relay_domains = spamtest.entinux.com
+
+# 全てのメールを配送する信頼されたネットーワーク
+mynetworks = !192.168.1.1/32 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+
+
+[master.cf]
+from_spamtest.entinux.com   unix -        -       -       -       50         smtp
+    # -o syslog_name=from_spamtest.entinux.com
+    -o smtp_initial_destination_concurrency=3
+    -o smtp_destination_rate_delay=1s
+    -o smtp_destination_recipient_limit=20
+    -o smtp_destination_concurrency_limit=10
+    -o smtp_destination_concurrency_failed_cohort_limit=3
+
+to_spamtest.entinux.com   unix -        -       -       -       25         smtp
+    -o smtp_send_xforward_command=yes
+    -o smtp_initial_destination_concurrency=4
+    -o smtp_destination_rate_delay=0s
+    -o smtp_destination_recipient_limit=50
+    -o smtp_destination_concurrency_limit=25
+    -o smtp_destination_concurrency_failed_cohort_limit=25
+    # -o syslog_name=to_spamtest.entinux.com
+    -o smtp_reply_filter=pcre:/etc/postfix/smtp_reply_filter/spamtest.entinux.com_reply_filter
+
+# service type private unpriv chroot wakeup maxproc command+args
+# http://www.postfix-jp.info/trans-2.2/jhtml/master.5.html
+# サービス名
+# サービス種類(inet/unix/fifo)
+# Private - アクセス制限
+# Unprivileged - root権限で走るか
+# Chroot - メールキューディレクトリにChrootして走らせるか
+# Wake up time - 自動起動までの時間(default:0 自動起動しない)
+# Process limit - 同時実行可能プロセス数(default:100)
+# Command name + arguments
+name unix - - - - 25 smtp
+ -o xxx
+
+-o smtp_send_xforward_command=yes						# EHLO 応答で XFORWARD サポートが通知された場合に、非標準的な XFORWARD コマンドを送る
+-o smtp_initial_destination_concurrency=4				# ???
+-o smtp_destination_rate_delay=0s						# ???
+-o smtp_destination_recipient_limit=50					# transportを使った、配送ごとの最大の受信者数
+-o smtp_destination_concurrency_limit=25				# transportを使った同じ配送先への並列配送の最大数
+-o smtp_destination_concurrency_failed_cohort_limit=25	# ???
+-o smtp_reply_filter									# 応答を書き換えるフィルター
+
+
+[virtual]
+# root宛てをcollector@domain1.comに配送
+root    collector@domain1.com
+
+
+[transport]
+# spamtest.entinux.com宛てはto_spamtest.entinux.comでmagi2.entinux.comに転送
+spamtest.entinux.com    to_spamtest.entinux.com:magi2.entinux.com
+
+
+
+magi2.entinux.com - client mail server
+
+
+
+
+
+Dear David
+
+
+
+
+
+Best Regards,
+Yusuke Sugaya
+
+
+
+

@@ -1,0 +1,21 @@
+tmux / tmux new-session -s <name>	新規セッションの開始
+
+C-t + $		セッション名変更
+C-t + ,		ウィンドウ名変更
+
+C-t + d								セッションのデタッチ
+tmux a / tmux a -t <session-name>	セッションにアタッチ
+tmux ls								セッション一覧
+tmux kill-session -t <session-name>	セッションを削除
+
+C-t + c		ウィンドウ作成
+C-t + n		ウィンドウ移動（next）
+C-t + p		ウィンドウ移動（pre）
+C-t + w		ウィンドウ一覧表示で移動
+C-t + &		ウィンドウ強制終了
+
+C-t + “				ペイン横分割
+C-t + %				ペイン縦分割
+C-t + o				ペインの移動
+C-t + q + <number>	ペインのインジケータ表示・移動
+C-t + x				ペイン強制終了

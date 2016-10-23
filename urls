@@ -8,9 +8,14 @@ http://big1to.com/development-note/661
 http://serverfault.com/questions/258469/how-to-configure-postfix-to-pipe-all-incoming-email-to-a-script
 
 http://stackoverflow.com/questions/23954103/how-to-configure-postfix-to-relay-all-incoming-mails-to-my-python-script-without
+---
+
 
 
 need to output log.
 
 
 DBMail - postfix and mysql
+
+# sshpass
+brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
