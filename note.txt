@@ -77,13 +77,29 @@ magi2.entinux.com - client mail server
 
 Dear David
 
+[Schedule]
+I made a schedule for a Spam Filtering Project as following link.
+https://docs.google.com/spreadsheets/d/1mKXU0oTx7p05QPXbCDavxnEAV8RdRlk1gd1OXQ7P1q0/edit?usp=sharing
+
+The blue line in the spreadsheet is the shortest time.(I estimated roughly)
+But, I want 2 month for this project including margins.
+The reasons, I'm new to PHP(I want to learn new language) and also new to Postfix.
+Therefore, the deadline will be 16th December.
+
+I've currently been reseaching existing Spam Filtering System and designing its new additional functions.
+
+[Questions]
+Q1. Is the develop environment is almost the same as production environment?
+
+Q2. Now, I can't imagine how to deploy codes that I will develop.(noneed for now)
+
+Q3. There're some that I still don't get around Postfix.
+    mailboxes style(default mbox?), around amavisd-new and spamassassin and
+	want an advice for the best way to redirect mails and so on.
+    I will ask you this directly tomorrow.
 
 
-
+btw, if you hard to call Sugaya, Please call me Yusuke.
 
 Best Regards,
 Yusuke Sugaya
-
-
-
-
